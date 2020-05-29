@@ -12,6 +12,20 @@
         var ballY = 5;
         var ballSpeedX = 7;
         var ballSpeedY = 4;
+
+        var paddle1Y = 250;
+        const paddle_height = 100;
+
+        function calcMousePos(evt) {
+            var rect = canvas.getBoundingClientRect();
+            var root =  document.documentElement;
+            var mouseX = evt.clientX - rect.left - root.scrollLeft;
+            var mouseY = evt.clientY - rect.top - root.scrollTop;
+            return {
+                x:mouseX,
+                y:mouseY
+            };
+        }
         // get level dimensions and add 2d interface
         window.onload = function() {
             console.log("Hello Friend!")
@@ -21,6 +35,12 @@
             setInterval(function () {
               moveEverything();
             drawEverything(); }, 1000/framesPerSecond);
+            
+            canvas.addEventListener('mousemove', 
+            function(evt) {
+                    var mousePos = calcMousePos(evt);
+                    paddle1Y = mousePos.y-(paddle_height/2);
+            });
          
         }
         // Separates move functionality from window loading and drawing paddles and ball
@@ -44,8 +64,9 @@
         function drawEverything() {
             // fills canvas with black 
             colorRect(0,0, canvas.width,canvas.height,'black')
-            // draws two white paddles
-            colorRect(10,210,10,100,'white');
+            // draws left paddle
+            colorRect(10,paddle1Y,10,paddle_height,'white');
+            // draws right paddle
             colorRect(680,210,10,100,'white');
             // draws small white ball
             colorCircle(ballX,ballY, 7, 'white')
