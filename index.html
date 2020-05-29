@@ -38,8 +38,11 @@
             // draws two white paddles
             colorRect(10,210,10,100,'white');
             colorRect(680,210,10,100,'white');
-            // draws small ball red ball (atm)
-            colorRect(ballX,250,10,10,'red');
+            // draws small white ball
+            canvasContext.fillStyle = 'white';
+            canvasContext.beginPath();
+            canvasContext.arc(ballX, 230, 7, 0, Math.PI*2, true)
+            canvasContext.fill();
            
 
         }
