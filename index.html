@@ -32,16 +32,19 @@
         }
         // draw level, paddles and ball.
         function drawEverything() {
-         
-            canvasContext.fillStyle = 'black';
-            canvasContext.fillRect(0,0, canvas.width,canvas.height);
+            colorRect(0,0, canvas.width,canvas.height,'black')
             canvasContext.fillStyle = 'red';
             canvasContext.fillRect(ballX,250,10,10);
             canvasContext.fillStyle = 'white';
-            canvasContext.fillRect(10,200,10,100);
+            colorRect(10,210,10,100)
             canvasContext.fillStyle = 'white';
-            canvasContext.fillRect(680,200,10,100);
+            colorRect(680,210,10,100)
 
         }
+        function colorRect(leftX,topY,width,height, drawColor) {
+            canvasContext.fillStyle = drawColor;
+            canvasContext.fillRect(leftX,topY,width,height);
+
+        } 
        </script>
 </html>
