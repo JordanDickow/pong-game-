@@ -21,6 +21,7 @@
             drawEverything(); }, 1000/framesPerSecond);
          
         }
+        // Separates move functionality from window loading and drawing paddles and ball
         function moveEverything() {
             ballX = ballX + ballSpeedX;
             if (ballX > canvas.width) {
@@ -32,15 +33,17 @@
         }
         // draw level, paddles and ball.
         function drawEverything() {
+            // fills canvas with black 
             colorRect(0,0, canvas.width,canvas.height,'black')
-            canvasContext.fillStyle = 'red';
-            canvasContext.fillRect(ballX,250,10,10);
-            canvasContext.fillStyle = 'white';
-            colorRect(10,210,10,100)
-            canvasContext.fillStyle = 'white';
-            colorRect(680,210,10,100)
+            // draws two white paddles
+            colorRect(10,210,10,100,'white');
+            colorRect(680,210,10,100,'white');
+            // draws small ball red ball (atm)
+            colorRect(ballX,250,10,10,'red');
+           
 
         }
+        // function to draw paddles and ball simpler
         function colorRect(leftX,topY,width,height, drawColor) {
             canvasContext.fillStyle = drawColor;
             canvasContext.fillRect(leftX,topY,width,height);
