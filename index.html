@@ -1,29 +1,46 @@
+
+
 <html>
    Welcome to<b><u>MY</u></b> Pong game!
-   <canvas id="gameCanvas" width="800" height="600">
+   <!-- // level dimensions  -->
+   <canvas id="gameCanvas" width="700" height="600">
 </canvas>
     <script>
         var canvas;
         var canvasContext;
         var ballX = 10;
+        var ballSpeedX = 7;
+        // get level dimensions and add 2d interface
         window.onload = function() {
             console.log("Hello Friend!")
              canvas = document.getElementById('gameCanvas');
             canvasContext = canvas.getContext('2d');
-            setInterval(drawEverything, 1000);
+            var framesPerSecond = 30;
+            setInterval(function () {
+              moveEverything();
+            drawEverything(); }, 1000/framesPerSecond);
          
         }
+        function moveEverything() {
+            ballX = ballX + ballSpeedX;
+            if (ballX > canvas.width) {
+            ballSpeedX = -ballSpeedX;
+            }
+            if (ballX < 0) {
+            ballSpeedX = -ballSpeedX;
+            }
+        }
+        // draw level, paddles and ball.
         function drawEverything() {
-            ballX = ballX + 10;
-            console.log(ballX)
+         
             canvasContext.fillStyle = 'black';
             canvasContext.fillRect(0,0, canvas.width,canvas.height);
             canvasContext.fillStyle = 'red';
-            canvasContext.fillRect(ballX *6,250,10,100);
+            canvasContext.fillRect(ballX,250,10,10);
             canvasContext.fillStyle = 'white';
-            canvasContext.fillRect(30,250,10,100);
+            canvasContext.fillRect(10,200,10,100);
             canvasContext.fillStyle = 'white';
-            canvasContext.fillRect(600,250,10,100);
+            canvasContext.fillRect(680,200,10,100);
 
         }
        </script>
