@@ -5,22 +5,21 @@
     <script>
         var canvas;
         var canvasContext;
+        var ballX = 10;
         window.onload = function() {
             console.log("Hello Friend!")
              canvas = document.getElementById('gameCanvas');
             canvasContext = canvas.getContext('2d');
-            drawEverything();
-            drawEverything();
-            drawEverything();
-            
+            setInterval(drawEverything, 1000);
          
         }
         function drawEverything() {
-            console.log("drawEverthing!")
+            ballX = ballX + 10;
+            console.log(ballX)
             canvasContext.fillStyle = 'black';
             canvasContext.fillRect(0,0, canvas.width,canvas.height);
             canvasContext.fillStyle = 'red';
-            canvasContext.fillRect(300,250,10,100);
+            canvasContext.fillRect(ballX *6,250,10,100);
             canvasContext.fillStyle = 'white';
             canvasContext.fillRect(30,250,10,100);
             canvasContext.fillStyle = 'white';
