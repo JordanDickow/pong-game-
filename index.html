@@ -15,6 +15,8 @@
         
         var player1Score = 0;
         var player2Score = 0;
+        const winningScore = 3;
+        var winScreen = false;
 
         var paddle1Y = 250;
         var paddle2Y = 250;
@@ -49,6 +51,14 @@
          
         }
         function ballReset() {
+            if (player1Score >= winningScore || 
+            player2Score >= winningScore) {
+                player1Score = 0;
+                player2Score = 0;
+                winScreen = true;
+                canvasContext.fillStyle ='white';
+                canvasContext.fillText("'%USER%' Wins!",100,100)
+            }
            ballSpeedX = -ballSpeedX;
             ballX = canvas.width/2;
             ballY = canvas.height/2;
@@ -65,24 +75,37 @@
         } 
         // Separates move functionality from window loading and drawing paddles and ball
         function moveEverything() {
+            if(winScreen){
+                return;
+            }
             compMovement();
             ballX = ballX + ballSpeedX;
             ballY = ballY + ballSpeedY;
             if (ballX > canvas.width) {
                 if(ballY > paddle2Y && ballY < paddle2Y+paddle_height) {
                     ballSpeedX = -ballSpeedX++
-              } else {
+                    var deltaY = ballY  
+                            -(paddle1Y+paddle_height/2);
+                            ballspeedY = deltaY * 0.35
+                } else {
+                    // must be before ball reset
+                 player1Score++; 
                 ballReset();
-                player1Score++;
+               
               }
              }
             if (ballX < 0) {
                 if(ballY > paddle1Y && ballY < paddle1Y+paddle_height) 
               {
                     ballSpeedX = -ballSpeedX++
+                    var deltaY = ballY  
+                            -(paddle2Y+paddle_height/2);
+                            ballspeedY = deltaY * 0.35
               } else {
+                   // must be before ball reset
+                player2Score++;   
                 ballReset();
-                player2Score++;
+             
               }
           
          
@@ -96,12 +119,18 @@
         }
         // draw level, paddles and ball.
         function drawEverything() {
-            // fills canvas with black 
+           // fills canvas with black 
             colorRect(0,0, canvas.width,canvas.height,'black')
+            if(winScreen){
+                canvasContext.fillStyle ='white';
+                canvasContext.fillText("Click to Start!",100,100)
+                return;
+            }
             // draws left player paddle
             colorRect(0,paddle1Y,paddle_thickness,paddle_height,'white');
             // draws right computer paddle
             colorRect(canvas.width - paddle_thickness,paddle2Y, paddle_thickness,paddle_height,'white');
+       
             // draws small white ball
             colorCircle(ballX,ballY, 7, 'white')
 
