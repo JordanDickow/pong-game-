@@ -14,7 +14,9 @@
         var ballSpeedY = 4;
 
         var paddle1Y = 250;
+        var paddle2Y = 250;
         const paddle_height = 100;
+        const paddle_thickness = 10;
 
         function calcMousePos(evt) {
             var rect = canvas.getBoundingClientRect();
@@ -39,19 +41,38 @@
             canvas.addEventListener('mousemove', 
             function(evt) {
                     var mousePos = calcMousePos(evt);
-                    paddle1Y = mousePos.y-(paddle_height/2);
+                    paddle2Y = mousePos.y-(paddle_height/2);
             });
          
         }
+        function ballReset() {
+           ballSpeedX = -ballSpeedX;
+            ballX = canvas.width/2;
+            ballY = canvas.height/2;
+        }
+        
+        
+        
         // Separates move functionality from window loading and drawing paddles and ball
         function moveEverything() {
             ballX = ballX + ballSpeedX;
             ballY = ballY + ballSpeedY;
             if (ballX > canvas.width) {
-            ballSpeedX = -ballSpeedX;
-            }
+                if(ballY > paddle2Y && ballY < paddle2Y+paddle_height) {
+                    ballSpeedX = -ballSpeedX
+              } else {
+                ballReset();
+              }
+             }
             if (ballX < 0) {
-            ballSpeedX = -ballSpeedX;
+                if(ballY > paddle1Y && ballY < paddle1Y+paddle_height) 
+              {
+                    ballSpeedX = -ballSpeedX
+              } else {
+                ballReset();
+              }
+          
+         
             }
             if (ballY < 0) {
             ballSpeedY = -ballSpeedY;
@@ -64,10 +85,10 @@
         function drawEverything() {
             // fills canvas with black 
             colorRect(0,0, canvas.width,canvas.height,'black')
-            // draws left paddle
-            colorRect(10,paddle1Y,10,paddle_height,'white');
-            // draws right paddle
-            colorRect(680,210,10,100,'white');
+            // draws left player paddle
+            colorRect(0,paddle1Y,paddle_thickness,paddle_height,'white');
+            // draws right computer paddle
+            colorRect(canvas.width - paddle_thickness,paddle2Y, paddle_thickness,paddle_height,'white');
             // draws small white ball
             colorCircle(ballX,ballY, 7, 'white')
 
@@ -86,4 +107,6 @@
 
         } 
        </script>
+       Best,<br>
+       Jordan Dickow
 </html>
