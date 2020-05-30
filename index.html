@@ -12,6 +12,9 @@
         var ballY = 5;
         var ballSpeedX = 7;
         var ballSpeedY = 4;
+        
+        var player1Score = 0;
+        var player2Score = 0;
 
         var paddle1Y = 250;
         var paddle2Y = 250;
@@ -41,7 +44,7 @@
             canvas.addEventListener('mousemove', 
             function(evt) {
                     var mousePos = calcMousePos(evt);
-                    paddle2Y = mousePos.y-(paddle_height/2);
+                    paddle1Y = mousePos.y-(paddle_height/2);
             });
          
         }
@@ -52,24 +55,34 @@
         }
         
         
-        
+        function compMovement() {
+            var paddle2YCenter = paddle2Y + (paddle_height/2);
+            if(paddle2YCenter < ballY-40) {
+                paddle2Y += 10;
+            } else if(paddle2YCenter > ballY+40) {
+                paddle2Y -= 10;
+            }
+        } 
         // Separates move functionality from window loading and drawing paddles and ball
         function moveEverything() {
+            compMovement();
             ballX = ballX + ballSpeedX;
             ballY = ballY + ballSpeedY;
             if (ballX > canvas.width) {
                 if(ballY > paddle2Y && ballY < paddle2Y+paddle_height) {
-                    ballSpeedX = -ballSpeedX
+                    ballSpeedX = -ballSpeedX++
               } else {
                 ballReset();
+                player1Score++;
               }
              }
             if (ballX < 0) {
                 if(ballY > paddle1Y && ballY < paddle1Y+paddle_height) 
               {
-                    ballSpeedX = -ballSpeedX
+                    ballSpeedX = -ballSpeedX++
               } else {
                 ballReset();
+                player2Score++;
               }
           
          
@@ -92,6 +105,10 @@
             // draws small white ball
             colorCircle(ballX,ballY, 7, 'white')
 
+
+            canvasContext.fillText(player1Score, 100,100)
+            canvasContext.fillText(player2Score, canvas.width-100,100)
+
             function colorCircle(centerX,centerY,radius,drawColor) {
              canvasContext.fillStyle = drawColor;
             canvasContext.beginPath();
@@ -107,6 +124,4 @@
 
         } 
        </script>
-       Best,<br>
-       Jordan Dickow
 </html>
