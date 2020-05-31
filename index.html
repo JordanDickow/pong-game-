@@ -33,6 +33,14 @@
                 y:mouseY
             };
         }
+        function handleMouseClick(evt){
+            if(winScreen) {
+                player1Score = 0;
+                player2Score = 0;
+                winScreen = false;
+            }
+
+        }
         // get level dimensions and add 2d interface
         window.onload = function() {
             console.log("Hello Friend!")
@@ -42,6 +50,8 @@
             setInterval(function () {
               moveEverything();
             drawEverything(); }, 1000/framesPerSecond);
+
+            canvas.addEventListener('mousedown', handleMouseClick);
             
             canvas.addEventListener('mousemove', 
             function(evt) {
@@ -57,7 +67,7 @@
                 player2Score = 0;
                 winScreen = true;
                 canvasContext.fillStyle ='white';
-                canvasContext.fillText("'%USER%' Wins!",100,100)
+                
             }
            ballSpeedX = -ballSpeedX;
             ballX = canvas.width/2;
